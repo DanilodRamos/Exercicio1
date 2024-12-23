@@ -38,6 +38,8 @@ podem ocorrer para datas futuras-A data de saída deve ser maior que a data de e
  Check-out date (dd/MM/yyyy): 22/09/2020
  Errorin reservation: Check-out date must beaftercheck-in date
 */
+
+//importaçoes
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -49,16 +51,23 @@ import model.exceptions.DomainException;
 public class Program {
 
 	public static void main(String[] args) {
+		//escanear
 		Scanner sc = new Scanner(System.in);
+		//datas
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		try {
+		//exceçoes 
+		try { //ler numero do quarto
 			System.out.print("Room number: ");
 			int number = sc.nextInt();
+			//data entrada
 			System.out.print("Check-in date (dd/MM/yyyy): ");
 			Date checkIn = sdf.parse(sc.next());
+			//data saida
 			System.out.print("Check-out date (dd/MM/yyyy): ");
+			//tratar metodo de excecao
 			Date checkOut = sdf.parse(sc.next());
 			
+			//instaciando a reserva e os dados da reserva numero data entrada e data saida
 			Reservation reservation = new Reservation(number, checkIn, checkOut);
 			System.out.println("Reservation: " + reservation);
 			
@@ -69,12 +78,14 @@ public class Program {
 			System.out.print("Check-out date (dd/MM/yyyy): ");
 			checkOut = sdf.parse(sc.next());
 			
+			 //atualizando datas
 			reservation.updateDates(checkIn, checkOut);
 			System.out.println("Reservation: " + reservation);
-		}
+		}//execoes invalidado formato
 		catch (ParseException e) {
 			System.out.println("Invalid date format");
 		}
+		//erro de reserva  datas anteriores da normal ou posterior
 		catch (DomainException e) {
 			System.out.println("Error in reservation: " + e.getMessage());
 		}
